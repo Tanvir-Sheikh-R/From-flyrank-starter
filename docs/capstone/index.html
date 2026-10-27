@@ -275,15 +275,16 @@
 <div class="abstract-box">
   <h2>Abstract</h2>
   <p>
-    Content teams face a recurring triage problem: thousands of pages, limited editorial hours, and no ranked signal for where to start.
-    This study asks — <em>which pages show the strongest measurable signals of search decline and are most worth prioritizing for review?</em>
-    Using the FlyRank ML Internship Dataset (30,000 anonymized content items, 32 clients, 90-day trailing search metrics),
-    I trained a Logistic Regression classifier on 52 observable signals of content performance, freshness, visibility, and engagement.
+    FlyRank's content teams face a recurring operational problem: a growing portfolio of pages, each competing for limited editorial hours, with no data-driven signal for where to start.
+    Pages that once ranked well quietly decay — competitors publish fresher material, search intent shifts, and impressions erode before anyone notices.
+    This study asks: <em>which pages show the strongest measurable signals of search decline and are most worth prioritizing for a content review?</em>
+    Using the FlyRank ML Internship Dataset (30,000 anonymized content items across 32 clients, with 90-day trailing search and engagement metrics),
+    I trained a Logistic Regression classifier on 52 observable signals — visibility, freshness, position, CTR, and engagement.
     Evaluated on a client-grouped holdout of 7 unseen clients, the model achieved a <strong>Precision@50 of 0.78</strong>
     — meaning 39 of the top 50 ranked pages were genuinely declining — compared to 0.32 for a manually constructed rule baseline and a base rate of 0.51.
-    The output is a ranked action queue assigning each page to one of five evidence-backed recommendations:
-    Refresh, Protect, Optimize Metadata, Review Content, or Monitor.
-    These results are observational and directional; they support editorial prioritization decisions, not causal claims about content quality or Google's ranking algorithm.
+    The output is a ranked action queue that assigns each page to one of five evidence-backed recommendations (Refresh, Protect, Optimize Metadata, Review Content, or Monitor),
+    giving a FlyRank content strategist a defensible, data-backed starting point for their next editorial sprint.
+    All results are observational and directional; they support prioritization decisions, not causal claims about content quality or ranking systems.
   </p>
 </div>
 
@@ -304,20 +305,25 @@
   <section id="introduction">
     <h2 class="section-title">1. Introduction / Problem Statement</h2>
     <p>
-      Search-visible content decays. Pages that once ranked well accumulate staleness — competitors publish fresher material,
-      search intent shifts, and Google's systems quietly de-prioritize pages that no longer satisfy user queries.
-      The problem for a content team isn't knowing that decay happens — it's knowing <em>which pages to fix first</em>.
+      FlyRank works with content teams managing large, search-visible portfolios — pages that rank in Google, drive organic traffic,
+      and require active curation to stay competitive. The core operational challenge is one of triage:
+      which pages deserve editorial attention <em>this sprint</em>?
     </p>
     <p>
-      A typical portfolio has hundreds or thousands of pages. Editorial capacity is finite. Without a ranked signal,
-      teams either work alphabetically, rely on gut feel, or respond reactively to traffic alerts that arrive too late.
-      This project builds a scored, ranked priority queue — with explicit reason codes — to give a content strategist or
-      SEO specialist a defensible starting point for their next review sprint.
+      Without a ranked signal, teams default to recency (fix whatever was last flagged), size (target the highest-traffic pages regardless of trend),
+      or gut feel. All three approaches miss the same category of high-value opportunity: pages that <em>used to rank well, still have measurable search presence, but are quietly declining</em> — the exact pages where a timely refresh has the highest expected return.
     </p>
     <p>
-      The unit of analysis is a single content item (one row in the dataset). The output is a model probability score and
-      a recommended action. A human reviewer reads the ranked list and decides what to do; the model does not automate
-      the editorial decision.
+      This project addresses that gap directly. Using FlyRank's anonymized search performance dataset across 32 client portfolios,
+      I built a scored, ranked priority queue that surfaces pages most associated with measured impression decline —
+      paired with reason codes and a recommended editorial action.
+      The queue is designed for a content strategist or SEO specialist who needs a defensible, data-backed starting point
+      for their next content review sprint. The model does not automate the editorial decision;
+      it gives the reviewer the right pages to look at first.
+    </p>
+    <p>
+      The key question the FlyRank content problem raises: <em>can observable signals in search and engagement data — without knowing the content's topic, domain, or client — reliably distinguish pages heading toward further decline from pages that are stable or recovering?</em>
+      This study's answer is: directionally yes, with important caveats about what "declining" means in a single-snapshot dataset.
     </p>
   </section>
 
@@ -659,9 +665,60 @@ jupyter nbconvert --to notebook --execute work/notebooks/capstone.ipynb</pre>
     </ul>
   </section>
 
-  <!-- ── 8. Acknowledgments ──────────────────────────────────────────────── -->
+  <!-- ── 8. Showcase & Shareable Cuts ─────────────────────────────────── -->
+  <section id="showcase">
+    <h2 class="section-title">8. Showcase &amp; Shareable Cuts</h2>
+    <p>
+      The same research findings retold for different audiences — ready for presentation and sharing.
+    </p>
+
+    <h3>5-Minute Demo Outline</h3>
+    <div class="callout note">
+      <strong>Beat 1 — The Problem (1 min)</strong>
+      FlyRank's clients manage thousands of content pages. Most teams lack a data-driven signal for which pages to fix first. They default to gut feel, recency, or page traffic size — and all three miss pages that used to rank and are quietly losing ground.
+    </div>
+    <div class="callout note">
+      <strong>Beat 2 — The Data (30 sec)</strong>
+      30,000 anonymized content pages across 32 clients with 90 days of real search and engagement metrics from the FlyRank ML Internship Dataset. 54.2% of pages are currently experiencing measurable impression decline.
+    </div>
+    <div class="callout note">
+      <strong>Beat 3 — The Method (1.5 min)</strong>
+      Binary classification framed as a ranking task. Client-grouped holdout ensures generalization to unseen client sites. Label-source metrics excluded to eliminate leakage. Readable Logistic Regression baseline vs Random Forest.
+    </div>
+    <div class="callout note">
+      <strong>Beat 4 — The Honest Result (1 min)</strong>
+      Logistic Regression achieves Precision@50 of 0.78 on unseen clients (39 of top 50 declining) vs 0.32 for a heuristic rule baseline and 0.51 base rate. Results are directional decision-support signals.
+    </div>
+    <div class="callout note">
+      <strong>Beat 5 — The Recommendation (1 min)</strong>
+      Action queue categorizes 483 pages for Refresh, 967 for Metadata Optimization, and 62 to Protect. Teams can export the playbook CSV and immediately triage editorial workflows.
+    </div>
+
+    <h3>Shareable Cuts</h3>
+    <div class="callout" style="background:#f4f6f7; border-left:4px solid var(--dark);">
+      <strong>Cut 1: Social Post (LinkedIn / X)</strong>
+      <p style="font-family:'Helvetica Neue',sans-serif; font-size:14px; margin-bottom:0;">
+        I spent the last several weeks building a content refresh prioritization model on real search data — 30,000 pages, 32 client portfolios, 90 days of GSC and engagement signals from the FlyRank ML Internship Dataset.<br><br>
+        The interesting finding: the "obvious" rule (flag visible pages that are old and slipping in position) scores <em>below random</em> at Precision@50 (0.32 vs 0.51). The trained Logistic Regression model hits <strong>0.78</strong> — placing 39 genuinely declining pages in the top 50 recommendations.<br><br>
+        The most predictive signal wasn't traffic volume or keyword competition. It was whether a page had any GSC position data at all (<code>has_position</code>) — combined with how consistently it accumulated impressions over time. Pages with real, sustained search presence fail in a different pattern than pages that were never truly visible.<br><br>
+        Full methodology, reproducible code, and deployed paper in the link below.<br><br>
+        <em>#SEO #MachineLearning #ContentStrategy #DataScience</em>
+      </p>
+    </div>
+
+    <div class="callout" style="background:#f4f6f7; border-left:4px solid var(--dark);">
+      <strong>Cut 2: Employer-Facing 3-Sentence Summary</strong>
+      <p style="font-family:'Helvetica Neue',sans-serif; font-size:14px; margin-bottom:0;">
+        I built a content refresh prioritization engine using Logistic Regression on 30,000 real, anonymized search performance records across 32 client portfolios — features included GSC visibility, content freshness, CTR, engagement depth, and position signals.<br><br>
+        Evaluated on a client-grouped holdout (7 unseen clients) to test real-world generalization, the model achieved Precision@50 of 0.78 versus 0.32 for a hand-crafted rule baseline and a 0.51 base rate — a 2.4× lift, with zero client overlap between train and test confirmed in code.<br><br>
+        The deliverable is a ranked action queue (REFRESH / PROTECT / OPTIMIZE METADATA / MONITOR) with reason codes, deployed as a public research paper with full reproducibility documentation and an end-to-end reproducible notebook.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── 9. Acknowledgments ──────────────────────────────────────────────── -->
   <section id="acknowledgments">
-    <h2 class="section-title">8. Acknowledgments &amp; Data Credit</h2>
+    <h2 class="section-title">9. Acknowledgments &amp; Data Credit</h2>
     <p>
       Built on the <strong>FlyRank ML Internship Dataset</strong> — a real, anonymized search performance dataset
       provided by <a href="https://flyrank.ai" target="_blank" rel="noopener">FlyRank</a> for machine learning education and research.
