@@ -1,0 +1,35 @@
+{
+  "baseline_rules": {
+    "precision_at_20": 0.4,
+    "precision_at_50": 0.32,
+    "precision_at_100": 0.34,
+    "roc_auc": 0.4976
+  },
+  "logistic_regression": {
+    "precision_at_20": 0.8,
+    "precision_at_50": 0.78,
+    "precision_at_100": 0.71,
+    "roc_auc": 0.5867,
+    "avg_precision": 0.5832
+  },
+  "random_forest": {
+    "precision_at_20": 0.55,
+    "precision_at_50": 0.6,
+    "precision_at_100": 0.59,
+    "roc_auc": 0.6049,
+    "avg_precision": 0.5873
+  },
+  "meta": {
+    "base_rate_test": 0.511,
+    "base_rate_full": 0.5421,
+    "n_rows": 30000,
+    "n_clients": 32,
+    "n_train": 23837,
+    "n_test": 6163,
+    "n_train_clients": 25,
+    "n_test_clients": 7,
+    "best_model": "logistic_regression",
+    "feature_count": 52,
+    "seed": 42
+  }
+}
